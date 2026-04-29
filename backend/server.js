@@ -1,7 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-require('dotenv').config();
 
 const itemsRouter = require('./routes/items');
 
@@ -17,10 +16,23 @@ app.get('/', (req, res) => {
     res.send('Item Manager API is running...');
 });
 
+// ONLY use the environment variable - NO fallback
+const mongoURI = process.env.MONGO_URI;
+
+if (!mongoURI) {
+    console.error('ERROR: MONGO_URI environment variable is not set!');
+    process.exit(1);
+}
+
+console.log('Connecting to MongoDB...');
+
 mongoose
-    .connect(process.env.MONGO_URI)
+    .connect(mongoURI)
     .then(() => {
         console.log('Connected to MongoDB');
         app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
     })
-    .catch((err) => console.error('MongoDB connection error:', err));
+    .catch((err) => {
+        console.error('MongoDB connection error:', err.message);
+        process.exit(1);
+    });
