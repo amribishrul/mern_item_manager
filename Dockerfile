@@ -8,7 +8,7 @@ RUN npm install
 
 COPY backend/ .
 
-ENV MONGO_URI=mongodb+srv://amrishafi77_db_user:bAmmb7caPAWhtlFu@itemmanager.yreg48x.mongodb.net/item-manager?retryWrites=true&w=majority&appName=ItemManager
+ENV MONGO_URI=mongodb+srv://amrishafi77_db_user:Test123456@itemmanager.yreg48x.mongodb.net/item-manager?retryWrites=true&w=majority&appName=ItemManager
 ENV PORT=5000
 
 EXPOSE 5000
